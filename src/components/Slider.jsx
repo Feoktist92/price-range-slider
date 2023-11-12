@@ -23,29 +23,29 @@ const RangeSlider = ({ min, max, value, step, onChange }) => {
 
     const handleMinChange = (e) => {
         const inputValue = parseFromRubles(e.target.value);
+        const newMinPos = ((inputValue - min) / (max - min)) * 100;
         if (inputValue >= min && inputValue <= maxValue - step) {
             setMinValue(inputValue);
             onChange({ min: inputValue, max: maxValue });
-            const newMinPos = ((inputValue - min) / (max - min)) * 100;
-            setMinPos(newMinPos); // Добавьте это состояние и обновите положение
+            setMinPos(newMinPos);
         } else if (e.target.value === '') {
             setMinValue(0);
             onChange({ min: 0, max: maxValue });
-            setMinPos(0); // Сбросите положение
+            setMinPos(0);
         }
     };
 
     const handleMaxChange = (e) => {
         const inputValue = parseFromRubles(e.target.value);
+        const newMaxPos = ((inputValue - min) / (max - min)) * 100;
         if (inputValue >= minValue + step && inputValue <= max) {
             setMaxValue(inputValue);
             onChange({ min: minValue, max: inputValue });
-            const newMaxPos = ((inputValue - min) / (max - min)) * 100;
-            setMaxPos(newMaxPos); // Добавьте это состояние и обновите положение
+            setMaxPos(newMaxPos);
         } else if (e.target.value === '') {
             setMaxValue(minValue + step);
             onChange({ min: minValue, max: minValue + step });
-            setMaxPos(100); // Сбросите положение
+            setMaxPos(100);
         }
     };
 
@@ -68,9 +68,6 @@ const RangeSlider = ({ min, max, value, step, onChange }) => {
         setMaxValue(formattedValue);
         onChange({ min: minValue, max: maxValue });
     };
-
-    // const minPos = ((minValue - min) / (max - min)) * 100;
-    // const maxPos = ((maxValue - min) / (max - min)) * 100;
 
     return (
         <div className='wrapper'>
@@ -97,7 +94,7 @@ const RangeSlider = ({ min, max, value, step, onChange }) => {
                 />
                 <div
                     className='tooltip'
-                    style={{ left: `${(minValue / max) * 100 - 9}%` }}
+                    style={{ left: `${(minValue / max) * 100 - 5}% ` }}
                 >
                     <input
                         type='text'
@@ -113,7 +110,7 @@ const RangeSlider = ({ min, max, value, step, onChange }) => {
                 </div>
                 <div
                     className='tooltip'
-                    style={{ left: `${(maxValue / max) * 100 + 10}%` }}
+                    style={{ left: `${(maxValue / max) * 100 + 5}%` }}
                 >
                     <input
                         type='text'

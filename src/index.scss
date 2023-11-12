@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #1f1f1f;
+    color: white;
+    min-height: 100vh;
+}
+
+$thumb-size: 16px;
+
+@mixin track-styles {
+    appearance: none;
+    background: transparent;
+    border: transparent;
+}
+
+@mixin thumb-styles {
+    appearance: none;
+    pointer-events: all;
+    width: $thumb-size;
+    height: $thumb-size;
+    border-radius: 0px;
+    border: 0 none;
+    cursor: grab;
+    background-color: #000;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+#root {
+    max-width: 500px;
+    padding-top: 100px;
+
+    margin: 0 auto;
+}
+
+.wrapper {
+    max-width: 200px;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 40px calc(#{$thumb-size} / 2);
+    margin: 0 auto;
+    padding-top: 1.6rem;
+    height: calc(#{$thumb-size} + 1.6rem);
+}
+
+.input-wrapper {
+    width: calc(100% + #{$thumb-size});
+    margin: 0 calc(#{$thumb-size} / -2);
+    position: absolute;
+    height: $thumb-size;
+}
+
+.control-wrapper {
+    width: 100%;
+    position: absolute;
+    height: $thumb-size;
+}
+
+.input {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    height: 100%;
+    opacity: 0;
+    z-index: 3;
+    padding: 0;
+
+    &::-ms-track {
+        @include track-styles;
+    }
+
+    &::-moz-range-track {
+        @include track-styles;
+    }
+
+    &:focus::-webkit-slider-runnable-track {
+        @include track-styles;
+    }
+
+    &::-ms-thumb {
+        @include thumb-styles;
+    }
+
+    &::-moz-range-thumb {
+        @include thumb-styles;
+    }
+
+    &::-webkit-slider-thumb {
+        @include thumb-styles;
+    }
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type='number'],
+input[type='number']:hover,
+input[type='number']:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+input[type='number']:focus {
+    outline: none;
+}
+
+.rail {
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 12px;
+    border-radius: 30px;
+    background: #ffecbb;
+}
+.inner-rail {
+    position: absolute;
+    height: 100%;
+    background: #fdc840;
+    transition: left 0.1s, right 0.1s;
+}
+
+.control {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    background: white;
+    top: 50%;
+    margin-left: calc(#{$thumb-size} / -2);
+    transform: translate3d(0, -50%, 0);
+    z-index: 2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
+    transition: left 0.1s, right 0.1s;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .tooltip {
+    position: absolute;
+    background-color: #6a6a6a;
+    color: #fff;
+    padding: 4px 7px;
+    border-radius: 5px;
+    font-size: 12px;
+
+    text-align: center;
+    user-select: none;
+    transform: translateX(-50%);
+    transition: opacity 0.2s;
+    opacity: 1;
+    white-space: nowrap;
+    top: -40px;
+}
+
+.tooltip > input {
+    max-width: 40px;
+    padding: 0;
+    background-color: #6a6a6a;
+    color: white;
+    font-size: 12px;
+    border: none;
+    text-align: center;
+}
+.tooltip > input:focus {
+    outline: none;
+}
